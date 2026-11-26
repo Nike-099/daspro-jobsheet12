@@ -18,6 +18,9 @@ public class Kafe25 {
     }
     public static void main(String[] args) {
         Menu("Andi", true);
+        System.out.println();
+
+        Menu("Budi", false);
     }
 }
    
