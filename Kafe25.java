@@ -31,14 +31,28 @@ public class Kafe25 {
 
         Menu("Andi", true);
 
-        System.out.print("\nMasukkan nomor menu yang ingin Anda pesan: ");
-        int pilihanMenu = sc.nextInt();
-        System.out.print("Masukkan jumlah item yang ingin dipesan: ");
-        int banyakItem = sc.nextInt();
+        int totalKeseluruhan = 0;
+        String pesanLagi;
 
-        int totalBayar = hitungTotalHarga25(pilihanMenu, banyakItem);
+        do {
+            System.out.print("\nMasukkan nomor menu yang ingin Anda pesan: ");
+            int pilihanMenu = sc.nextInt();
 
-        System.out.println("Total harga untuk pesanan Anda: Rp " + totalBayar);
+            if (pilihanMenu < 1 || pilihanMenu > 6) {
+                System.out.println("Menu tidak tersedia");
+            } else {
+                System.out.print("Masukkan jumlah item yang ingin dipesan: ");
+                int banyakItem = sc.nextInt();
+                int subtotal = hitungTotalHarga25(pilihanMenu, banyakItem);
+                totalKeseluruhan += subtotal;
+            }
+
+            System.out.print("Apakah ingin memesan menu lain (y/n)? ");
+            pesanLagi = sc.next();
+
+        } while (pesanLagi.equalsIgnoreCase("y"));
+
+        System.out.println("Total keseluruhan pesanan Anda: Rp" + totalKeseluruhan);
 
         sc.close();
     }
