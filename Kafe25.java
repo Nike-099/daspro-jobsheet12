@@ -26,12 +26,32 @@ public class Kafe25 {
         return hargaTotal;
     }
 
+    public static int hitungDiskon(int total, String kodePromo, boolean isMember) {
+        int diskonPromo = 0;
+
+        if (kodePromo.equals("DISKON50")) {
+            diskonPromo = total * 50 / 100;
+        } else if (kodePromo.equals("DISKON30")) {
+            diskonPromo = total * 30 / 100;
+        } else {
+            System.out.println("Kode promo invalid");
+        }
+
+        int diskonMember = 0;
+        if (isMember) {
+            diskonMember = total * 10 / 100;
+        }
+
+        return diskonPromo + diskonMember;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        Menu("Andi", true);
+        boolean isMember = true;
+        Menu("Andi", isMember);
 
-        int totalKeseluruhan = 0;
+        int totalHarga = 0;
         String pesanLagi;
 
         do {
@@ -43,8 +63,7 @@ public class Kafe25 {
             } else {
                 System.out.print("Masukkan jumlah item yang ingin dipesan: ");
                 int banyakItem = sc.nextInt();
-                int subtotal = hitungTotalHarga25(pilihanMenu, banyakItem);
-                totalKeseluruhan += subtotal;
+                totalHarga += hitungTotalHarga25(pilihanMenu, banyakItem);
             }
 
             System.out.print("Apakah ingin memesan menu lain (y/n)? ");
@@ -52,7 +71,15 @@ public class Kafe25 {
 
         } while (pesanLagi.equalsIgnoreCase("y"));
 
-        System.out.println("Total keseluruhan pesanan Anda: Rp" + totalKeseluruhan);
+        System.out.print("Masukkan kode promo: ");
+        String kodePromo = sc.next();
+
+        int besarDiskon = hitungDiskon(totalHarga, kodePromo, isMember);
+        int totalBayar = totalHarga - besarDiskon;
+
+        System.out.println("Total harga              : Rp" + totalHarga);
+        System.out.println("Besar diskon             : Rp" + besarDiskon);
+        System.out.println("Total yang harus dibayar: Rp" + totalBayar);
 
         sc.close();
     }
